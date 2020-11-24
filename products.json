@@ -1,0 +1,32 @@
+[
+  {
+    "barcode": 1001,
+    "name": "beer",
+    "amount": 1,
+    "price": 1.20
+  },
+  {
+    "barcode": 1001,
+    "name": "beer",
+    "amount": 2,
+    "price": 2
+  },
+  {
+    "barcode": 1243,
+    "name": "eggs",
+    "amount": 1,
+    "price": 0.20
+  },
+  {
+    "barcode": 1243,
+    "name": "eggs",
+    "amount": 10,
+    "price": 1.90
+  },
+  {
+    "barcode": 3401,
+    "name": "chocolate",
+    "amount": 1,
+    "price": 3.15
+  }
+]
