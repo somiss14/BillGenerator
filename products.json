@@ -3,30 +3,32 @@
     "barcode": 1001,
     "name": "beer",
     "amount": 1,
-    "price": 1.20
-  },
-  {
-    "barcode": 1001,
-    "name": "beer",
-    "amount": 2,
-    "price": 2
+    "price": 1.20,
+    "promoAmount": 2,
+    "promo": 2.00
   },
   {
     "barcode": 1243,
     "name": "eggs",
     "amount": 1,
-    "price": 0.20
-  },
-  {
-    "barcode": 1243,
-    "name": "eggs",
-    "amount": 10,
-    "price": 1.90
+    "price": 0.20,
+    "promoAmount": 10,
+    "promo": 1.9
   },
   {
     "barcode": 3401,
     "name": "chocolate",
     "amount": 1,
-    "price": 3.15
+    "price": 3.15,
+    "promoAmount": 0,
+    "promo": 0
+  },
+  {
+    "barcode": 1111,
+    "name": "tea",
+    "amount": 1,
+    "price": 2.15,
+    "promoAmount": 2,
+    "promo": 4
   }
 ]

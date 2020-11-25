@@ -1,57 +1,43 @@
-let bill = 0;
-let beerAmount = 0;
-let eggsAmount = 0;
-let chocolateAmount = 0;
-
 const fs = require('fs');
+
+function readProductsFromJson(){
+    const data = fs.readFileSync('products.json', 'utf8');
+    return JSON.parse(data);
+}
+
+function readBasketFromJson(){
+    const data2 = fs.readFileSync('basket.json', 'utf8');
+    return JSON.parse(data2);
+}
 
 try {
 
-    const data = fs.readFileSync('products.json', 'utf8');
+    let basket = readBasketFromJson();
 
-    const productss = JSON.parse(data);
+    let products = readProductsFromJson();
 
-    const data2 = fs.readFileSync('basket.json', 'utf8');
+    let bill = 0;
 
-    const baskett = JSON.parse(data2);
-
-    let basket = baskett;
+    let dict = {};
 
     function countYourBill (){
 
-        for (let i = 0; i <= basket.length; i++) {
-            if (basket[i] === 1001) {
-                beerAmount++;
+        for (let i = 0; i < basket.length; i++) {
+            if(basket[i] in dict){
+                dict[basket[i]] ++;
             }
-            if (basket[i] === 3401) {
-                chocolateAmount++;
-            }
-            if (basket[i] === 1243) {
-                eggsAmount++;
+            else{
+                dict[basket[i]] = 1;
             }
         }
-
-        let result = (beerAmount % 2 === 0) ? "even" : "odd";
-        let result2 = (eggsAmount % 10 === 0) ? "divisible" : "non";
-
-        if (result === "even") {
-            bill += beerAmount/2*productss[1].price;
+        for(let key in dict) {
+            let value = dict[key];
+            products.find(x =>{ if(x.promo === 0 && key == x.barcode) { (bill += value*x.price)}});
+            products.find(x =>{ if(x.promo !== 0 && key == x.barcode && (value % x.promoAmount === 0)) {(bill += value/x.promoAmount*x.promo)}});
+            products.find(x =>{ if(x.promo !== 0 && key == x.barcode && (value % x.promoAmount !== 0)) {(bill += Math.floor(value/x.promoAmount)*x.promo + (value - Math.floor(value/x.promoAmount) * x.promoAmount)* x.price)}});
         }
-        if (result === "odd") {
-            bill += (beerAmount - 1)/2*productss[1].price + productss[0].price;
-        }
-        if (result2 === "divisible") {
-            bill += eggsAmount/10*productss[3].price;
-        }
-        if (result2 === "non") {
-            let temp = parseInt((eggsAmount / 10).toString());
-            bill += temp * productss[3].price + (eggsAmount - temp * 10) * productss[2].price;
-        }
-        bill += chocolateAmount * productss[4].price;
-
-        console.log("Total bill: " + bill);
+        console.log("Your bill is: " + bill);
     }
-
 
 } catch (err) {
     console.log(`Error reading file from disk: ${err}`);
